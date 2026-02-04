@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情绪安抚引导</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffd9e8 0%, #f9f0ff 25%, #e0f5ff 50%, #d9ffe8 75%, #fff9d9 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 卡通装饰元素 */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        body::before {
+            top: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%23FFB6C1"/><circle cx="35" cy="40" r="5" fill="white"/><circle cx="65" cy="40" r="5" fill="white"/><path d="M30 60 Q50 80 70 60" stroke="white" stroke-width="3" fill="none"/></svg>');
+        }
+        
+        body::after {
+            bottom: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%2387CEFA"/><circle cx="35" cy="40" r="5" fill="white"/><circle cx="65" cy="40" r="5" fill="white"/><path d="M30 60 Q50 80 70 60" stroke="white" stroke-width="3" fill="none"/></svg>');
+        }
+        
+        /* 装饰云朵 - 毛绒材质可动 */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+            z-index: -1;
+            opacity: 0.8;
+            box-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                inset 0 0 15px rgba(255, 255, 255, 0.5),
+                inset 0 -5px 10px rgba(240, 240, 240, 0.8);
+            animation: float linear infinite;
+        }
+        
+        /* 云朵形状细化 */
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.8),
+                inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        /* 云朵1 */
+        .cloud1 {
+            top: 10%;
+            left: 10%;
+            width: 100px;
+            height: 60px;
+            animation-duration: 60s;
+        }
+        
+        .cloud1::before {
+            top: -20px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .cloud1::after {
+            top: -15px;
+            right: 15px;
+            width: 60px;
+            height: 60px;
+        }
+        
+        /* 云朵2 */
+        .cloud2 {
+            top: 20%;
+            right: 15%;
+            width: 120px;
+            height: 70px;
+            animation-duration: 80s;
+            animation-direction: reverse;
+        }
+        
+        .cloud2::before {
+            top: -25px;
+            left: 15px;
+            width: 60px;
+            height: 60px;
+        }
+        
+        .cloud2::after {
+            top: -20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+        }
+        
+        /* 云朵3 */
+        .cloud3 {
+            bottom: 15%;
+            left: 20%;
+            width: 80px;
+            height: 50px;
+            animation-duration: 70s;
+        }
+        
+        .cloud3::before {
+            top: -15px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .cloud3::after {
+            top: -10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+        }
+        
+        /* 云朵浮动动画 */
+        @keyframes float {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            25% {
+                transform: translateX(20px) translateY(-10px);
+            }
+            50% {
+                transform: translateX(0) translateY(0);
+            }
+            75% {
+                transform: translateX(-20px) translateY(10px);
+            }
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+        }
+        
+        /* 可爱的装饰元素 */
+        
+        /* 彩虹 */
+        .rainbow {
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            border-radius: 150px 150px 0 0;
+            background: linear-gradient(
+                to bottom,
+                #FF0000 0%,
+                #FF7F00 14.28%,
+                #FFFF00 28.56%,
+                #00FF00 42.84%,
+                #0000FF 57.12%,
+                #4B0082 71.4%,
+                #9400D3 85.68%,
+                rgba(148, 0, 211, 0) 100%
+            );
+            opacity: 0.6;
+            z-index: -1;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 30px rgba(255, 100, 100, 0.3);
+            animation: rainbowFloat 8s ease-in-out infinite;
+        }
+        
+        @keyframes rainbowFloat {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+                opacity: 0.8;
+            }
+        }
+        
+        /* 星星 */
+        .star {
+            position: absolute;
+            background: white;
+            clip-path: polygon(
+                50% 0%,
+                61% 35%,
+                98% 35%,
+                68% 57%,
+                79% 91%,
+                50% 70%,
+                21% 91%,
+                32% 57%,
+                2% 35%,
+                39% 35%
+            );
+            animation: twinkle ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        .star1 {
+            top: 15%;
+            right: 10%;
+            width: 20px;
+            height: 20px;
+            animation-duration: 3s;
+        }
+        
+        .star2 {
+            top: 30%;
+            left: 5%;
+            width: 15px;
+            height: 15px;
+            animation-duration: 4s;
+        }
+        
+        .star3 {
+            bottom: 25%;
+            right: 15%;
+            width: 18px;
+            height: 18px;
+            animation-duration: 5s;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* 可爱的小动物 - 太阳 */
+        .sun {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 70px;
+            height: 70px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            z-index: -1;
+            animation: spin 20s linear infinite;
+        }
+        
+        .sun::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #FFA500;
+            border-radius: 50%;
+        }
+        
+        /* 太阳的笑脸 */
+        .sun::after {
+            content: '😊';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25px;
+            z-index: 1;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* 可爱的按钮效果 */
+        .start-button, .submit-button {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .start-button::before, .submit-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+        
+        /* 呼吸圆圈的可爱效果 */
+        .breathing-circle {
+            position: relative;
+        }
+        
+        .breathing-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.1;
+            }
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #FFA07A);
+        }
+        
+        .start-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .start-button {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4);
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .start-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        .guide-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .breathing-circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ECDC4, #45B7D1);
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            transition: all 4s ease;
+            box-shadow: 0 8px 24px rgba(78, 205, 196, 0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .breathing-circle.expanding {
+            transform: scale(1.2);
+            background: linear-gradient(135deg, #45B7D1, #3A8DBD);
+        }
+        
+        .breathing-circle.contracting {
+            transform: scale(0.8);
+            background: linear-gradient(135deg, #3A8DBD, #2C7AB3);
+        }
+        
+        .instruction-text {
+            font-size: 26px;
+            margin: 20px 0;
+            color: #333;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comforting-text {
+            font-size: 22px;
+            color: #666;
+            line-height: 1.6;
+            max-width: 400px;
+            font-weight: 500;
+        }
+        
+        .timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: #666;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #95A5A6, #BDC3C7);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(149, 165, 166, 0.3);
+            font-weight: bold;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(149, 165, 166, 0.4);
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #9B59B6, #8E44AD) !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            font-size: 16px !important;
+            border-radius: 25px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3) !important;
+            font-weight: bold !important;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 16px rgba(155, 89, 182, 0.4) !important;
+        }
+        
+        h3 {
+            color: #333 !important;
+            font-size: 22px !important;
+            font-weight: bold !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        /* 烦恼输入框样式 */
+        #worryInput {
+            transition: all 0.3s ease !important;
+        }
+        
+        #worryInput:focus {
+            outline: none !important;
+            box-shadow: 
+                0 0 20px rgba(78, 205, 196, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        @keyframes borderAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        /* 调整输入框占位符样式 */
+        textarea::placeholder {
+            color: #999 !important;
+            font-style: italic !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        textarea:focus::placeholder {
+            color: #ccc !important;
+        }
+        
+        /* 烦恼输入区域的标题样式 */
+        .烦恼输入 h3 {
+            position: relative !important;
+            display: inline-block !important;
+        }
+        
+        .烦恼输入 h3::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -5px !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 3px !important;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #9B59B6) !important;
+            border-radius: 3px !important;
+            animation: titleShine 3s ease-in-out infinite !important;
+        }
+        
+        @keyframes titleShine {
+            0%, 100% {
+                transform: scaleX(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scaleX(1.05);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 卡通装饰元素 -->
+    <!-- 云朵 -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    
+    <!-- 彩虹 -->
+    <div class="rainbow"></div>
+    
+    <!-- 星星 -->
+    <div class="star star1"></div>
+    <div class="star star2"></div>
+    <div class="star star3"></div>
+    
+    <!-- 太阳 -->
+    <div class="sun"></div>
+    
+    <div class="container">
+        <!-- 开始页面 -->
+        <div class="start-section" id="startSection">
+            <button class="start-button" id="startButton">我现在有点撑不住</button>
+            
+            <div class="烦恼输入" style="margin-top: 40px; width: 80%; max-width: 400px;">
+                <h3 style="margin-bottom: 10px; color: #333;">分享你的烦恼</h3>
+                <div style="position: relative; border-radius: 16px; padding: 3px; background: linear-gradient(45deg, #FFD9E8, #F9F0FF, #E0F5FF, #D9FFE8); background-size: 400% 400%; animation: borderAnimation 8s linear infinite;">
+                    <textarea id="worryInput" placeholder="请输入你的烦恼..." style="width: 100%; padding: 15px; border: none; border-radius: 13px; font-size: 16px; resize: vertical; min-height: 120px; font-family: Arial, sans-serif; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);"></textarea>
+                </div>
+                <button class="submit-button" id="submitWorry" style="margin-top: 15px; background-color: #4CAF50; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 25px; cursor: pointer; transition: all 0.3s ease;">获取安慰</button>
+            </div>
+            
+            <!-- AI回复区域 -->
+            <div class="ai-response" id="aiResponse" style="margin-top: 30px; width: 80%; max-width: 400px; display: none;">
+                <h3 style="margin-bottom: 10px; color: #333;">AI的安慰</h3>
+                <div id="responseText" style="padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; font-size: 16px; line-height: 1.5;"></div>
+            </div>
+        </div>
+        
+        <!-- 引导页面 -->
+        <div class="guide-section" id="guideSection">
+            <button class="back-button" id="backButton">返回</button>
+            <div class="timer" id="timer">00:00</div>
+            
+            <!-- 呼吸引导 -->
+            <div id="breathingGuide" class="breathing-guide">
+                <div class="instruction-text" id="breathingText">准备开始呼吸练习</div>
+                <div class="breathing-circle" id="breathingCircle"></div>
+            </div>
+            
+            <!-- 动作指令 -->
+            <div id="actionGuide" class="action-guide" style="display: none;">
+                <div class="instruction-text" id="actionText">准备开始动作练习</div>
+            </div>
+            
+            <!-- 安抚话语 -->
+            <div id="comfortGuide" class="comfort-guide" style="display: none;">
+                <div class="comforting-text" id="comfortText">准备开始安抚</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DOM元素
+        const startSection = document.getElementById('startSection');
+        const guideSection = document.getElementById('guideSection');
+        const startButton = document.getElementById('startButton');
+        const backButton = document.getElementById('backButton');
+        const timer = document.getElementById('timer');
+        
+        // 呼吸引导元素
+        const breathingGuide = document.getElementById('breathingGuide');
+        const breathingText = document.getElementById('breathingText');
+        const breathingCircle = document.getElementById('breathingCircle');
+        
+        // 动作指令元素
+        const actionGuide = document.getElementById('actionGuide');
+        const actionText = document.getElementById('actionText');
+        
+        // 安抚话语元素
+        const comfortGuide = document.getElementById('comfortGuide');
+        const comfortText = document.getElementById('comfortText');
+        
+        // 总时长 (30秒呼吸 + 20秒动作 + 10秒安抚)
+        const TOTAL_DURATION = 60;
+        let elapsedTime = 0;
+        let timerInterval = null;
+        
+        // 开始按钮点击事件
+        startButton.addEventListener('click', startGuide);
+        
+        // 返回按钮点击事件
+        backButton.addEventListener('click', goBack);
+        
+        // 开始引导流程
+        function startGuide() {
+            startSection.style.display = 'none';
+            guideSection.style.display = 'flex';
+            
+            // 重置计时器
+            elapsedTime = 0;
+            updateTimer();
+            
+            // 开始计时
+            timerInterval = setInterval(() => {
+                elapsedTime++;
+                updateTimer();
+                
+                // 检查是否完成所有步骤
+                if (elapsedTime >= TOTAL_DURATION) {
+                    clearInterval(timerInterval);
+                    goBack();
+                }
+            }, 1000);
+            
+            // 开始呼吸引导
+            startBreathingGuide();
+        }
+        
+        // 更新计时器显示
+        function updateTimer() {
+            const minutes = Math.floor(elapsedTime / 60);
+            const seconds = elapsedTime % 60;
+            timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // 开始呼吸引导 (25秒)
+        function startBreathingGuide() {
+            breathingGuide.style.display = 'flex';
+            actionGuide.style.display = 'none';
+            comfortGuide.style.display = 'none';
+            
+            let breathCount = 0;
+            const maxBreaths = 4; // 总共25秒
+            
+            function breatheIn() {
+                breathingText.textContent = '吸气...';
+                breathingCircle.className = 'breathing-circle expanding';
+                
+                setTimeout(() => {
+                    breatheOut();
+                }, 3000); // 吸气3秒
+            }
+            
+            function breatheOut() {
+                breathingText.textContent = '呼气...';
+                breathingCircle.className = 'breathing-circle contracting';
+                
+                breathCount++;
+                
+                if (breathCount < maxBreaths) {
+                    setTimeout(() => {
+                        breatheIn();
+                    }, 3000); // 呼气3秒
+                } else {
+                    // 呼吸引导结束，开始动作指令
+                    setTimeout(startActionGuide, 1000);
+                }
+            }
+            
+            // 开始呼吸循环
+            breatheIn();
+        }
+        
+        // 开始动作指令 (20秒)
+        function startActionGuide() {
+            breathingGuide.style.display = 'none';
+            actionGuide.style.display = 'flex';
+            comfortGuide.style.display = 'none';
+            
+            // 显示加载状态
+            actionText.textContent = 'Deepseek AI正在生成动作建议...';
+            
+            // 调用Deepseek API生成动作建议
+            generateActionsWithDeepseek()
+                .then(actions => {
+                    let actionIndex = 0;
+                    
+                    function showNextAction() {
+                        if (actionIndex < actions.length) {
+                            actionText.textContent = actions[actionIndex];
+                            actionIndex++;
+                            
+                            setTimeout(showNextAction, 6000); // 每个动作6秒，3个动作共18秒
+                        } else {
+                            // 动作指令结束，开始安抚话语
+                            setTimeout(startComfortGuide, 2000);
+                        }
+                    }
+                    
+                    // 开始动作循环
+                    showNextAction();
+                })
+                .catch(error => {
+                    console.error('Deepseek API调用失败:', error);
+                    // 失败时使用备用动作库
+                    useFallbackActions();
+                });
+        }
+        
+        // 使用Deepseek API生成动作建议
+        async function generateActionsWithDeepseek() {
+            try {
+                // 注意：这里需要替换为实际的Deepseek API密钥和端点
+                const apiKey = 'YOUR_DEEPSEEK_API_KEY';
+                const apiUrl = 'https://api.deepseek.com/v1/chat/completions';
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'deepseek-chat',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: '你是一个专业的放松指导助手，请生成3个简短的放松动作指令，每个动作不超过20字，不包含闭上眼睛的动作，动作要简单易做，适合在任何场合进行。'
+                            },
+                            {
+                                role: 'user',
+                                content: '请生成3个简短的放松动作指令'
+                            }
+                        ],
+                        max_tokens: 200,
+                        temperature: 0.7
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API调用失败: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const content = data.choices[0].message.content;
+                
+                // 解析生成的动作
+                const actions = content.split('\n')
+                    .filter(line => line.trim() !== '')
+                    .map(line => line.replace(/^\d+\.\s*/, '').trim())
+                    .slice(0, 3);
+                
+                return actions;
+            } catch (error) {
+                console.error('Deepseek API调用失败:', error);
+                // 失败时使用备用动作库
+                return getFallbackActions();
+            }
+        }
+        
+        // 使用备用动作库
+        function useFallbackActions() {
+            const actions = getFallbackActions();
+            let actionIndex = 0;
+            
+            function showNextAction() {
+                if (actionIndex < actions.length) {
+                    actionText.textContent = actions[actionIndex];
+                    actionIndex++;
+                    
+                    setTimeout(showNextAction, 6000); // 每个动作6秒，3个动作共18秒
+                } else {
+                    // 动作指令结束，开始安抚话语
+                    setTimeout(startComfortGuide, 2000);
+                }
+            }
+            
+            // 开始动作循环
+            showNextAction();
+        }
+        
+        // 获取备用动作
+        function getFallbackActions() {
+            // 丰富的动作库，作为备用
+            const actionLibrary = [
+                '放松肩膀，从颈部开始慢慢向下放松',
+                '缓慢转动颈部，顺时针转一圈，再逆时针转一圈',
+                '伸展手臂，向上伸直，感受肌肉的拉伸',
+                '放松全身肌肉，从头部开始逐渐放松到脚趾',
+                '轻轻按摩太阳穴，缓解头部紧张',
+                '缓慢眨眼，放松眼部肌肉',
+                '收紧再放松拳头，重复几次',
+                '缓慢点头，放松颈部肌肉',
+                '轻轻转动手腕，顺时针和逆时针各转几圈',
+                '放松面部肌肉，轻轻微笑',
+                '缓慢收腹再放松，感受腹部的起伏',
+                '轻轻按摩肩部，缓解紧张感',
+                '缓慢转动脚踝，放松下肢',
+                '双手轻轻揉搓，产生温暖感'
+            ];
+            
+            // 随机选择3个不同的动作
+            let selectedActions = [];
+            while (selectedActions.length < 3) {
+                const randomIndex = Math.floor(Math.random() * actionLibrary.length);
+                const action = actionLibrary[randomIndex];
+                if (!selectedActions.includes(action)) {
+                    selectedActions.push(action);
+                }
+            }
+            
+            return selectedActions;
+        }
+        
+        // 开始安抚话语 (10秒)
+        function startComfortGuide() {
+            breathingGuide.style.display = 'none';
+            actionGuide.style.display = 'none';
+            comfortGuide.style.display = 'flex';
+            
+            // 显示加载状态
+            comfortText.textContent = 'Deepseek AI正在生成安抚话语...';
+            
+            // 调用Deepseek API生成安抚话语
+            generateComfortMessagesWithDeepseek()
+                .then(messages => {
+                    // 只显示第一个安抚话语
+                    comfortText.textContent = messages[0];
+                    
+                    // 10秒后结束安抚话语
+                    setTimeout(() => {
+                        clearInterval(timerInterval);
+                        goBack();
+                    }, 10000);
+                })
+                .catch(error => {
+                    console.error('Deepseek API调用失败:', error);
+                    // 失败时使用备用安抚话语库
+                    useFallbackComfortMessages();
+                });
+        }
+        
+        // 使用Deepseek API生成安抚话语
+        async function generateComfortMessagesWithDeepseek() {
+            try {
+                // 注意：这里需要替换为实际的Deepseek API密钥和端点
+                const apiKey = 'YOUR_DEEPSEEK_API_KEY';
+                const apiUrl = 'https://api.deepseek.com/v1/chat/completions';
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'deepseek-chat',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: '你是一个温暖的心理支持助手，请生成1条简短的安抚话语，不超过30字，语气温柔、鼓励，帮助情绪低落的人感到被理解和支持。'
+                            },
+                            {
+                                role: 'user',
+                                content: '请生成1条简短的安抚话语'
+                            }
+                        ],
+                        max_tokens: 100,
+                        temperature: 0.7
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API调用失败: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const message = data.choices[0].message.content.trim();
+                
+                // 返回单个消息
+                return [message];
+            } catch (error) {
+                console.error('Deepseek API调用失败:', error);
+                // 失败时使用备用安抚话语库
+                return [getFallbackComfortMessages()];
+            }
+        }
+        
+        // 使用备用安抚话语库
+        function useFallbackComfortMessages() {
+            const message = getFallbackComfortMessages();
+            comfortText.textContent = message;
+            
+            // 10秒后结束安抚话语
+            setTimeout(() => {
+                clearInterval(timerInterval);
+                goBack();
+            }, 10000);
+        }
+        
+        // 获取备用安抚话语
+        function getFallbackComfortMessages() {
+            // 丰富的安抚话语库，作为备用
+            const comfortingMessages = [
+                '你做得很好，给自己一点时间，一切都会过去的',
+                '困难只是暂时的，你有足够的力量度过这个难关',
+                '你值得被关爱和理解，不要对自己太苛刻',
+                '慢慢来，给自己空间和时间， healing需要过程',
+                '你不是一个人在面对这些，有很多人关心着你',
+                '你的感受是合理的，允许自己感受这些情绪',
+                '你已经很勇敢了，坚持到现在就是一种胜利',
+                '每一个困难都是成长的机会，你会变得更强大',
+                '给自己一个拥抱，你值得被温柔对待',
+                '今天的你已经做得足够好，明天会更好',
+                '你的存在本身就是有价值的，不要忘记这一点',
+                '允许自己休息，恢复能量是很重要的',
+                '你不需要完美，只需要做真实的自己',
+                '困难会过去，阳光总会到来',
+                '你有能力面对这一切，相信自己'
+            ];
+            
+            // 随机选择1条安抚话语
+            const randomIndex = Math.floor(Math.random() * comfortingMessages.length);
+            return comfortingMessages[randomIndex];
+        }
+        
+        // 返回开始页面
+        function goBack() {
+            clearInterval(timerInterval);
+            guideSection.style.display = 'none';
+            startSection.style.display = 'flex';
+        }
+        
+        // 烦恼输入和AI回复功能
+        const worryInput = document.getElementById('worryInput');
+        const submitWorry = document.getElementById('submitWorry');
+        const aiResponse = document.getElementById('aiResponse');
+        const responseText = document.getElementById('responseText');
+        
+        // 点击获取安慰按钮
+        submitWorry.addEventListener('click', generateAIResponse);
+        
+        // 监听输入框变化，当为空时清空AI回复
+        worryInput.addEventListener('input', function() {
+            if (this.value.trim() === '') {
+                aiResponse.style.display = 'none';
+                responseText.textContent = '';
+            }
+        });
+        
+        // 生成AI回复
+        function generateAIResponse() {
+            const worryText = worryInput.value.trim();
+            
+            if (!worryText) {
+                alert('请输入你的烦恼');
+                return;
+            }
+            
+            // 模拟AI思考过程
+            responseText.textContent = 'AI正在思考...';
+            aiResponse.style.display = 'block';
+            
+            // 延迟显示回复，模拟AI处理时间
+            setTimeout(() => {
+                const response = getAIResponse(worryText);
+                responseText.textContent = response;
+            }, 1000);
+        }
+        
+        // 根据烦恼内容生成回复
+        function getAIResponse(worry) {
+            // 关键词分析
+            const worryLower = worry.toLowerCase();
+            
+            // 回复库
+            const responses = {
+                work: [
+                    '工作压力是很常见的，给自己设定合理的目标，一步一步来',
+                    '工作只是生活的一部分，不要让它占据你全部的注意力',
+                    '适当的休息可以提高工作效率，给自己一点放松的时间',
+                    '如果工作真的让你很痛苦，也许可以考虑调整或寻找新的机会',
+                    '你已经很努力了，不要对自己太苛刻，尽力就好'
+                ],
+                relationship: [
+                    '人际关系确实很复杂，给自己和对方一些时间和空间',
+                    '沟通是解决问题的关键，试着坦诚地表达你的感受',
+                    '每个人都有自己的想法和感受，学会理解和接纳差异',
+                    '有时候放手也是一种选择，不要勉强自己在不快乐的关系中',
+                    '你值得被爱和尊重，不要忘记这一点'
+                ],
+                health: [
+                    '健康是最重要的，一定要照顾好自己的身体',
+                    '如果身体不适，及时就医是最明智的选择',
+                    '良好的作息和饮食习惯对健康非常重要',
+                    '适当的运动可以改善心情和身体状况',
+                    '给自己一些休息时间，恢复体力和精神'
+                ],
+                stress: [
+                    '压力是生活的一部分，学会如何管理它很重要',
+                    '深呼吸和冥想可以帮助缓解压力',
+                    '把大问题分解成小步骤，一步一步解决',
+                    '不要独自承受压力，和朋友或家人分享你的感受',
+                    '记住，这只是暂时的，一切都会好起来的'
+                ],
+                anxiety: [
+                    '焦虑是很常见的，不要为此感到羞耻',
+                    '试着专注于当下，而不是担心未来',
+                    '深呼吸练习可以帮助缓解焦虑感',
+                    '如果焦虑严重影响你的生活，考虑寻求专业帮助',
+                    '你有能力面对这些感受，它们不会永远控制你'
+                ],
+                general: [
+                    '我能理解你的感受，这种时候确实很艰难',
+                    '给自己一点时间和空间，允许自己感受这些情绪',
+                    '记住，困难只是暂时的，你会度过这个阶段',
+                    '你已经很勇敢了，面对这些挑战不是一件容易的事',
+                    '如果需要帮助，不要犹豫寻求支持，你不是一个人',
+                    '试着做一些让自己开心的事情，哪怕只是很小的事情',
+                    '相信自己的能力，你已经度过了很多困难时刻',
+                    '对自己温柔一点，你值得被关爱',
+                    '每一个挑战都是成长的机会，虽然现在很难',
+                    '保持希望，明天会更好的'
+                ]
+            };
+            
+            // 关键词匹配
+            if (worryLower.includes('工作') || worryLower.includes('上班') || worryLower.includes('老板') || worryLower.includes('同事')) {
+                return getRandomResponse(responses.work);
+            } else if (worryLower.includes('感情') || worryLower.includes('恋爱') || worryLower.includes('朋友') || worryLower.includes('家人') || worryLower.includes('关系')) {
+                return getRandomResponse(responses.relationship);
+            } else if (worryLower.includes('身体') || worryLower.includes('健康') || worryLower.includes('生病') || worryLower.includes('医院')) {
+                return getRandomResponse(responses.health);
+            } else if (worryLower.includes('压力') || worryLower.includes('累') || worryLower.includes('忙')) {
+                return getRandomResponse(responses.stress);
+            } else if (worryLower.includes('焦虑') || worryLower.includes('担心') || worryLower.includes('害怕') || worryLower.includes('恐惧')) {
+                return getRandomResponse(responses.anxiety);
+            } else {
+                return getRandomResponse(responses.general);
+            }
+        }
+        
+        // 从数组中随机选择一个元素
+        function getRandomResponse(array) {
+            const randomIndex = Math.floor(Math.random() * array.length);
+            return array[randomIndex];
+        }
+    </script>
+</body>
+</html>
